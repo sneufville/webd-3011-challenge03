@@ -20,3 +20,23 @@ products_over_10.each { |product_found|
 
 number_of_products_low_stock = Product.where("stock_quantity < '5'").count
 puts "Number of products with low_stock: #{number_of_products_low_stock}"
+
+puts product.category.name
+
+first_category = Category.first
+new_product_from_cat = first_category.products.build(
+    name: 'Amazing Product',
+    description: 'This is the most amazing product',
+    price: 4.04,
+    stock_quantity: 404,
+)
+
+new_product_from_cat.save
+puts new_product_from_cat.inspect
+
+last_category = Category.last
+# related products
+related_products = last_category.products.where("price > '10'")
+related_products.each do |related|
+  puts "Product: #{related.name} $#{related.price}"
+end
